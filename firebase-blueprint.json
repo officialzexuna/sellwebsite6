@@ -1,0 +1,45 @@
+{
+  "entities": {
+    "searchConsoleConfig": {
+      "title": "SearchConsoleConfig",
+      "description": "Configuration and ownership verification status for Google Search Console",
+      "type": "object",
+      "properties": {
+        "verificationToken": {
+          "type": "string",
+          "maxLength": 256,
+          "description": "Google site verification meta tag content or token string"
+        },
+        "isVerified": {
+          "type": "boolean",
+          "description": "Whether ownership has been verified in Search Console"
+        },
+        "verifiedAt": {
+          "type": "string",
+          "description": "Timestamp when verification was confirmed"
+        },
+        "method": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Verification method used: meta_tag, html_file, or dns"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Last update timestamp"
+        },
+        "updatedBy": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Identifier of the user or system that updated the configuration"
+        }
+      },
+      "required": ["verificationToken", "isVerified", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/search_console_settings/{settingId}": {
+      "schema": "searchConsoleConfig",
+      "description": "Google Search Console ownership verification settings and logs"
+    }
+  }
+}

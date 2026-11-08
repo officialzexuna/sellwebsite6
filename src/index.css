@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --color-navy-950: #080D18;
+  --color-navy-900: #10182A;
+  --color-navy-800: #18233C;
+  --color-navy-700: #223254;
+  --color-electric: #3978FF;
+  --color-electric-light: #65A4FF;
+  --color-electric-cyan: #38BDF8;
+  --color-primary-text: #F7F9FF;
+  --color-secondary-text: #A7B1C5;
+}
+
+@layer base {
+  body {
+    background-color: #080D18;
+    color: #F7F9FF;
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: var(--font-display);
+  }
+}
+
+/* Custom dark luxury styling */
+.glass-panel {
+  background: rgba(16, 24, 42, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(57, 120, 255, 0.15);
+}
+
+.glass-panel-hover {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel-hover:hover {
+  border-color: rgba(101, 164, 255, 0.4);
+  background: rgba(24, 35, 60, 0.85);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px -8px rgba(57, 120, 255, 0.18);
+}
+
+.glow-blue {
+  box-shadow: 0 0 35px -5px rgba(57, 120, 255, 0.35);
+}
+
+.text-gradient-electric {
+  background: linear-gradient(135deg, #FFFFFF 0%, #65A4FF 50%, #3978FF 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-gradient-cyan {
+  background: linear-gradient(135deg, #65A4FF 0%, #38BDF8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Accessible focus outline */
+:focus-visible {
+  outline: 2px solid #65A4FF;
+  outline-offset: 3px;
+}

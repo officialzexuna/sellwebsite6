@@ -1,0 +1,39 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global Safety Net: default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isValidSearchConsoleConfig(data) {
+      return data.keys().hasAll(['verificationToken', 'isVerified', 'updatedAt']) &&
+             data.keys().hasOnly(['verificationToken', 'isVerified', 'verifiedAt', 'method', 'updatedAt', 'updatedBy']) &&
+             data.verificationToken is string && data.verificationToken.size() <= 256 &&
+             data.isVerified is bool &&
+             data.updatedAt is string && data.updatedAt.size() <= 64 &&
+             (!('method' in data) || (data.method is string && data.method.size() <= 64)) &&
+             (!('verifiedAt' in data) || (data.verifiedAt is string && data.verifiedAt.size() <= 64)) &&
+             (!('updatedBy' in data) || (data.updatedBy is string && data.updatedBy.size() <= 128));
+    }
+
+    match /search_console_settings/{settingId} {
+      allow get: if isValidId(settingId);
+      allow list: if true;
+      allow create, update: if isValidId(settingId) && isValidSearchConsoleConfig(incoming());
+      allow delete: if false;
+    }
+  }
+}

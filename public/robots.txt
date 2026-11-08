@@ -1,0 +1,8 @@
+# robots.txt for ZEXUNA (https://zexuna.com)
+# Technology Without Limits — Official Website of ZEXUNA & Founder Maddisetti Hema Harsha
+
+User-agent: *
+Allow: /
+
+# Canonical XML Sitemap
+Sitemap: https://zexuna.com/sitemap.xml
